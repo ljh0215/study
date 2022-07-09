@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">Btn</button>
+    <button id="get">Get</button>
+    <div id="box"></div>
+
+    <script>
+        
+        document.querySelector('#btn').addEventListener('click', function(){
+            const div = document.createElement('div');
+            const input = document.createElement('input');
+            input.type='text';
+            div.appendChild(input);
+            document.querySelector('#box').appendChild(div);
+        })
+
+        let gArray = [];
+        document.querySelector('#get').addEventListener('click', function(){
+            const arr = document.querySelectorAll('input');
+            
+            if(gArray == null){
+                return;
+            }
+            else{
+                for(let i = 0; i < arr.length;i++){
+                gArray.push(arr[i].value);
+            }
+            }
+            
+            console.log(gArray);
+            localStorage.setItem('abc',JSON.stringify(gArray));
+        })
+
+       window.addEventListener('load', function() {
+        // 페이지가 로딩됐을 때 생기는 이벤트
+        console.log('Load');
+        gArray = JSON.parse(localStorage.getItem('abc'));
+        if(gArray === null){
+            gArray=[];
+        }
+        else{
+            for(let i = 0; i<gArray.length; i++){
+            const div = document.createElement('div');
+            const input = document.createElement('input');
+            input.type='text';
+            div.appendChild(input);
+            document.querySelector('#box').appendChild(div);
+            input.value=gArray[i];
+            }
+        }
+       })
+        
+    </script>
+</body>
+</html>
